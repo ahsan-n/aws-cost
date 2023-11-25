@@ -1,6 +1,7 @@
 package ec2_test
 
 import (
+	"fmt"
 	"github.com/ahsan-n/aws-cost/internal/ec2"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
@@ -22,15 +23,43 @@ func TestGetSpotPricing(t *testing.T) {
 	mockService := new(MockService)
 	expectedResponse := response()
 
-	t.Run("SuccessfulFetch", func(t *testing.T) {
+	t.Run("ValidateRegion", func(t *testing.T) {
 		mockService.On("GetResponse", url).Return(expectedResponse, nil)
 
-		pricing, err := ec2.GetSpotPricing(mockService)
+		actual, err := ec2.GetSpotPricing(mockService, "ap-southeast-1")
 		if err != nil {
 			return
 		}
 
-		assert.Equal(t, 2.00, pricing)
+		assert.Equal(t, 1, len(*actual))
+		assert.Equal(t, "ap-southeast-1", (*actual)[0].Region)
+
+		mockService.AssertExpectations(t)
+	})
+
+	t.Run("AllRegions", func(t *testing.T) {
+		mockService.On("GetResponse", url).Return(expectedResponse, nil)
+
+		actual, err := ec2.GetSpotPricing(mockService, "")
+
+		if err != nil {
+			return
+		}
+
+		assert.Equal(t, 2, len(*actual))
+
+		mockService.AssertExpectations(t)
+	})
+
+	t.Run("RegionNotFound", func(t *testing.T) {
+		mockService.On("GetResponse", url).Return(expectedResponse, nil)
+
+		_, err := ec2.GetSpotPricing(mockService, "eu-west-1")
+		if err != nil {
+			assert.Error(t, err)
+
+			assert.Equal(t, fmt.Errorf("region eu-west-1 not found"), err)
+		}
 
 		mockService.AssertExpectations(t)
 	})

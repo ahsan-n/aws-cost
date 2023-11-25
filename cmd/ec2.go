@@ -40,17 +40,21 @@ to quickly create a Cobra application.`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 
 		limit, err := cmd.Flags().GetBool("all")
+		region, err := cmd.Flags().GetString("region")
 		if err != nil {
 			return err
 		}
-		return pricing(limit)
+		if err != nil {
+			return err
+		}
+		return pricing(limit, region)
 	},
 }
 
-func pricing(limit bool) error {
+func pricing(limit bool, region string) error {
 
 	s := &ec2.Spot{}
-	spotPricing, err := ec2.GetSpotPricing(s)
+	spotPricing, err := ec2.GetSpotPricing(s, region)
 	fmt.Println(spotPricing)
 	if err != nil {
 		return err
@@ -62,6 +66,7 @@ func pricing(limit bool) error {
 
 func init() {
 	ec2Cmd.PersistentFlags().BoolP("all", "a", false, "get all ec2 from all regions (expects a boolean value)")
+	ec2Cmd.PersistentFlags().StringP("region", "r", "ap-southeast-1", "aws region name")
 	getCmd.AddCommand(ec2Cmd)
 
 	// Here you will define your flags and configuration settings.

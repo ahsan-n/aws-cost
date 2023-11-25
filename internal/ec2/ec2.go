@@ -73,17 +73,28 @@ func (s *Spot) GetResponse(url string) (*SpotPricing, error) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(data)
+	//fmt.Println(data)
 	return &data, nil
 
 }
 
-func GetSpotPricing(service Service) (float64, error) {
+func GetSpotPricing(service Service, region string) (*[]Region, error) {
 	body, err := service.GetResponse("https://website.spot.ec2.aws.a2z.com/spot.json")
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
 
-	return body.Vers + 1, nil
+	if region == "" {
+		return &body.Config.Regions, nil
+	}
+
+	for _, r := range body.Config.Regions {
+
+		if r.Region == region {
+			return &[]Region{r}, nil
+		}
+
+	}
+	return nil, fmt.Errorf("region %s not found", region)
 
 }
