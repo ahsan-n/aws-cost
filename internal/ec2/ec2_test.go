@@ -20,32 +20,7 @@ func (m *MockService) GetResponse(url string) (*ec2.SpotPricing, error) {
 func TestGetSpotPricing(t *testing.T) {
 	url := "https://website.spot.ec2.aws.a2z.com/spot.json"
 	mockService := new(MockService)
-	expectedResponse := &ec2.SpotPricing{
-		Vers: 0,
-		Config: struct {
-			Rate         string   `json:"rate"`
-			ValueColumns []string `json:"valueColumns"`
-			Currencies   []string `json:"currencies"`
-			Regions      []struct {
-				Region    string `json:"region"`
-				Footnotes struct {
-					NAMING_FAILED string `json:"*"`
-				} `json:"footnotes"`
-				InstanceTypes []struct {
-					Type  string `json:"type"`
-					Sizes []struct {
-						Size         string `json:"size"`
-						ValueColumns []struct {
-							Name   string `json:"name"`
-							Prices struct {
-								USD string `json:"USD"`
-							} `json:"prices"`
-						} `json:"valueColumns"`
-					} `json:"sizes"`
-				} `json:"instanceTypes"`
-			} `json:"regions"`
-		}{Rate: "perhr"},
-	}
+	expectedResponse := response()
 
 	t.Run("SuccessfulFetch", func(t *testing.T) {
 		mockService.On("GetResponse", url).Return(expectedResponse, nil)
@@ -55,8 +30,72 @@ func TestGetSpotPricing(t *testing.T) {
 			return
 		}
 
-		assert.Equal(t, 1.00, pricing)
+		assert.Equal(t, 2.00, pricing)
 
 		mockService.AssertExpectations(t)
 	})
+
+}
+
+func response() *ec2.SpotPricing {
+	expectedResponse := &ec2.SpotPricing{
+		Vers: 1.0,
+		Config: ec2.PricingConfig{
+			Rate:         "perhour",
+			ValueColumns: []string{"value1", "value2"},
+			Currencies:   []string{"USD", "EUR"},
+			Regions: []ec2.Region{
+				{
+					Region: "ap-southeast-1",
+					Footnotes: ec2.Footnotes{
+						NAMING_FAILED: "example footnote",
+					},
+					InstanceTypes: []ec2.InstanceType{
+						{
+							Type: "generalCurrentGen",
+							Sizes: []ec2.Size{
+								{
+									Size: "t3a.micro",
+									ValueColumns: []ec2.ValueColumn{
+										{
+											Name: "linux",
+											Prices: ec2.Prices{
+												USD: "0.025",
+											},
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+				{
+					Region: "ap-southeast-2",
+					Footnotes: ec2.Footnotes{
+						NAMING_FAILED: "example footnote",
+					},
+					InstanceTypes: []ec2.InstanceType{
+						{
+							Type: "generalCurrentGen",
+							Sizes: []ec2.Size{
+								{
+									Size: "t2.micro",
+									ValueColumns: []ec2.ValueColumn{
+										{
+											Name: "linux",
+											Prices: ec2.Prices{
+												USD: "0.02125",
+											},
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+				// Add more regions as needed
+			},
+		},
+	}
+	return expectedResponse
 }

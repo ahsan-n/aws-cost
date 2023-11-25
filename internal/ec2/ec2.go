@@ -12,30 +12,44 @@ type Service interface {
 	GetResponse(url string) (*SpotPricing, error)
 }
 type SpotPricing struct {
-	Vers   float64 `json:"vers"`
-	Config struct {
-		Rate         string   `json:"rate"`
-		ValueColumns []string `json:"valueColumns"`
-		Currencies   []string `json:"currencies"`
-		Regions      []struct {
-			Region    string `json:"region"`
-			Footnotes struct {
-				NAMING_FAILED string `json:"*"`
-			} `json:"footnotes"`
-			InstanceTypes []struct {
-				Type  string `json:"type"`
-				Sizes []struct {
-					Size         string `json:"size"`
-					ValueColumns []struct {
-						Name   string `json:"name"`
-						Prices struct {
-							USD string `json:"USD"`
-						} `json:"prices"`
-					} `json:"valueColumns"`
-				} `json:"sizes"`
-			} `json:"instanceTypes"`
-		} `json:"regions"`
-	} `json:"config"`
+	Vers   float64       `json:"vers"`
+	Config PricingConfig `json:"config"`
+}
+
+type PricingConfig struct {
+	Rate         string   `json:"rate"`
+	ValueColumns []string `json:"valueColumns"`
+	Currencies   []string `json:"currencies"`
+	Regions      []Region `json:"regions"`
+}
+
+type Region struct {
+	Region        string         `json:"region"`
+	Footnotes     Footnotes      `json:"footnotes"`
+	InstanceTypes []InstanceType `json:"instanceTypes"`
+}
+
+type Footnotes struct {
+	NAMING_FAILED string `json:"*"`
+}
+
+type InstanceType struct {
+	Type  string `json:"type"`
+	Sizes []Size `json:"sizes"`
+}
+
+type Size struct {
+	Size         string        `json:"size"`
+	ValueColumns []ValueColumn `json:"valueColumns"`
+}
+
+type ValueColumn struct {
+	Name   string `json:"name"`
+	Prices Prices `json:"prices"`
+}
+
+type Prices struct {
+	USD string `json:"USD"`
 }
 
 type Spot struct{}
