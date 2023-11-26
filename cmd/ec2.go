@@ -40,10 +40,11 @@ to quickly create a Cobra application.`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 
 		limit, err := cmd.Flags().GetBool("all")
-		region, err := cmd.Flags().GetString("region")
 		if err != nil {
 			return err
 		}
+		region, err := cmd.Flags().GetString("region")
+
 		if err != nil {
 			return err
 		}
