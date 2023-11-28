@@ -1,3 +1,12 @@
+## [1.0.8](https://github.com/ahsan-n/aws-cost/compare/v1.0.7...v1.0.8) (2023-11-28)
+
+
+### Bug Fixes
+
+* **github-action:** added versioning in gorleaser ([4d5e75f](https://github.com/ahsan-n/aws-cost/commit/4d5e75f9938f260c71b1f178fd4c37c98d1eb9d6))
+* **symmentic-release:** added workflow for circle-ci ([762cfed](https://github.com/ahsan-n/aws-cost/commit/762cfed42e1b4a50f9a5b184a198e86a3f576cfe))
+* **symmentic-release:** added workflow for github-action ([f5c12da](https://github.com/ahsan-n/aws-cost/commit/f5c12da144c575781d1252a11b89a032d23de66f))
+
 ## [1.0.7](https://github.com/ahsan-n/aws-cost/compare/v1.0.6...v1.0.7) (2023-11-28)
 
 
