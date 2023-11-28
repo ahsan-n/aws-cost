@@ -22,9 +22,10 @@ THE SOFTWARE.
 package cmd
 
 import (
-	"fmt"
 	"github.com/ahsan-n/aws-cost/internal/ec2"
+	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/spf13/cobra"
+	"os"
 )
 
 // ec2Cmd represents the ec2 command
@@ -52,11 +53,32 @@ to quickly create a Cobra application.`,
 	},
 }
 
+func beautify(region *[]ec2.Region) {
+	t := table.NewWriter()
+	t.SetOutputMirror(os.Stdout)
+	t.SetAutoIndex(true)
+	t.AppendHeader(table.Row{"size", "linux/windows", "price"})
+	for _, r := range *region {
+		for _, i := range r.InstanceTypes {
+			for _, s := range i.Sizes {
+				for _, v := range s.ValueColumns {
+					t.AppendRow(table.Row{s.Size, v.Name, v.Prices.USD})
+
+				}
+			}
+		}
+
+	}
+
+	t.AppendSeparator()
+	t.Render()
+}
 func pricing(limit bool, region string) error {
 
 	s := &ec2.Spot{}
-	spotPricing, err := ec2.GetSpotPricing(s, region)
-	fmt.Println(spotPricing)
+	sp, err := ec2.GetSpotPricing(s, region)
+	beautify(sp)
+	//fmt.Println(spotPricing)
 	if err != nil {
 		return err
 	}
