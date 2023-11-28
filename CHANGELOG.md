@@ -1,3 +1,11 @@
+## [1.0.6](https://github.com/ahsan-n/aws-cost/compare/v1.0.5...v1.0.6) (2023-11-28)
+
+
+### Bug Fixes
+
+* **github-action:** added versioning in gorleaser ([10d78f0](https://github.com/ahsan-n/aws-cost/commit/10d78f01f6c3279ae9f34e95447105494fc96bee))
+* **github-action:** added versioning in gorleaser ([39c5889](https://github.com/ahsan-n/aws-cost/commit/39c5889212ff62f5b57bb37c878138fdb5d69371))
+
 ## [1.0.5](https://github.com/ahsan-n/aws-cost/compare/v1.0.4...v1.0.5) (2023-11-28)
 
 
