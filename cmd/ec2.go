@@ -49,7 +49,12 @@ to quickly create a Cobra application.`,
 		if err != nil {
 			return err
 		}
-		return pricing(limit, region)
+
+		os, err := cmd.Flags().GetString("operating-system")
+		if err != nil {
+			return err
+		}
+		return pricing(limit, region, os)
 	},
 }
 
@@ -73,10 +78,10 @@ func beautify(region *[]ec2.Region) {
 	t.AppendSeparator()
 	t.Render()
 }
-func pricing(limit bool, region string) error {
+func pricing(limit bool, region string, os string) error {
 
 	s := &ec2.Spot{}
-	sp, err := ec2.GetSpotPricing(s, region)
+	sp, err := ec2.GetSpotPricing(s, region, os)
 	beautify(sp)
 	//fmt.Println(spotPricing)
 	if err != nil {
@@ -90,6 +95,7 @@ func pricing(limit bool, region string) error {
 func init() {
 	ec2Cmd.PersistentFlags().BoolP("all", "a", false, "get all ec2 from all regions (expects a boolean value)")
 	ec2Cmd.PersistentFlags().StringP("region", "r", "ap-southeast-1", "aws region name")
+	ec2Cmd.PersistentFlags().StringP("operating-system", "o", "linux", "include os")
 	getCmd.AddCommand(ec2Cmd)
 
 	// Here you will define your flags and configuration settings.

@@ -9,7 +9,7 @@ import (
 )
 
 type Service interface {
-	GetResponse(url string) (*SpotPricing, error)
+	GetResponse(url string, os string) (*SpotPricing, error)
 }
 type SpotPricing struct {
 	Vers   float64       `json:"vers"`
@@ -54,7 +54,7 @@ type Prices struct {
 
 type Spot struct{}
 
-func (s *Spot) GetResponse(url string) (*SpotPricing, error) {
+func (s *Spot) GetResponse(url string, os string) (*SpotPricing, error) {
 
 	resp, err := http.Get(url)
 	if err != nil {
@@ -73,13 +73,46 @@ func (s *Spot) GetResponse(url string) (*SpotPricing, error) {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	if os == "" {
+		return &data, nil
+	}
+	fmt.Println(os)
+	excludeMswinEntries(&data, os)
+
 	//fmt.Println(data)
 	return &data, nil
 
 }
+func excludeMswinEntries(spotPricing *SpotPricing, os string) {
+	for i, region := range spotPricing.Config.Regions {
+		for j, instanceType := range region.InstanceTypes {
+			for k, size := range instanceType.Sizes {
+				if os == "linux" {
+					filteredValueColumns := filterValueColumns(size.ValueColumns, "mswin")
+					spotPricing.Config.Regions[i].InstanceTypes[j].Sizes[k].ValueColumns = filteredValueColumns
 
-func GetSpotPricing(service Service, region string) (*[]Region, error) {
-	body, err := service.GetResponse("https://website.spot.ec2.aws.a2z.com/spot.json")
+				} else if os == "mswin" {
+					filteredValueColumns := filterValueColumns(size.ValueColumns, "linux")
+					spotPricing.Config.Regions[i].InstanceTypes[j].Sizes[k].ValueColumns = filteredValueColumns
+
+				}
+			}
+		}
+	}
+}
+
+func filterValueColumns(columns []ValueColumn, excludeName string) []ValueColumn {
+	filtered := []ValueColumn{}
+	for _, col := range columns {
+		if col.Name != excludeName {
+			filtered = append(filtered, col)
+		}
+	}
+	return filtered
+}
+func GetSpotPricing(service Service, region string, os string) (*[]Region, error) {
+	body, err := service.GetResponse("https://website.spot.ec2.aws.a2z.com/spot.json", os)
 	if err != nil {
 		return nil, err
 	}
