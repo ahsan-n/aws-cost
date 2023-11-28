@@ -19,3 +19,7 @@ jobs:
       - run:
           name: Run tests
           command: go test -v ./...
+workflows:
+  test-build-and-publish:
+    jobs:
+      - test-build-and-publish
