@@ -1,3 +1,10 @@
+## [1.0.9](https://github.com/ahsan-n/aws-cost/compare/v1.0.8...v1.0.9) (2023-11-28)
+
+
+### Bug Fixes
+
+* **symmentic-release:** added workflow for github-action ([678656e](https://github.com/ahsan-n/aws-cost/commit/678656eace44c2caff3f78f4d45ac92727f19ca4))
+
 ## [1.0.8](https://github.com/ahsan-n/aws-cost/compare/v1.0.7...v1.0.8) (2023-11-28)
 
 
