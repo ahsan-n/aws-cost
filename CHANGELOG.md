@@ -1,3 +1,10 @@
+## [1.0.5](https://github.com/ahsan-n/aws-cost/compare/v1.0.4...v1.0.5) (2023-11-28)
+
+
+### Bug Fixes
+
+* **symmentic-release:** added workflow for circle-ci ([f6db1b9](https://github.com/ahsan-n/aws-cost/commit/f6db1b9d2409c843ddda4ecdbd054d4af678dd34))
+
 ## [1.0.4](https://github.com/ahsan-n/aws-cost/compare/v1.0.3...v1.0.4) (2023-11-28)
 
 
