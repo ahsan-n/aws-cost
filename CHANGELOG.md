@@ -1,3 +1,13 @@
+## [1.0.10](https://github.com/ahsan-n/aws-cost/compare/v1.0.9...v1.0.10) (2023-11-29)
+
+
+### Bug Fixes
+
+* **symmentic-release:** added workflow for github-action ([8f09547](https://github.com/ahsan-n/aws-cost/commit/8f095478d53ee988f60e4eb25c7bef576148a582))
+* **symmentic-release:** fixed the comma form symmentic-release ([970cb1f](https://github.com/ahsan-n/aws-cost/commit/970cb1f2736f8412b883db88d7e3685477b5f0b9))
+* **symmentic-release:** fixed the comma form symmentic-release ([81cbb62](https://github.com/ahsan-n/aws-cost/commit/81cbb627ba28fc3b241232ff7260cdd4db196fcc))
+* **symmentic-release:** removed goreleaser ([3faaf25](https://github.com/ahsan-n/aws-cost/commit/3faaf251f599a0c0fcc8d76a77fc2027aa1b2305))
+
 ## [1.0.9](https://github.com/ahsan-n/aws-cost/compare/v1.0.8...v1.0.9) (2023-11-28)
 
 
