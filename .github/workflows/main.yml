@@ -14,15 +14,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Add GoReleaser repository
-        run: |
-          echo 'deb [trusted=yes] https://repo.goreleaser.com/apt/ /' | sudo tee /etc/apt/sources.list.d/goreleaser.list
-
-      - name: Install GoReleaser
-        run: |
-          sudo apt update
-          sudo apt install goreleaser
-
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
@@ -63,6 +54,15 @@ jobs:
       pull-requests: write # to be able to comment on released pull requests
       id-token: write # to enable use of OIDC for npm provenance
     steps:
+      - name: Add GoReleaser repository
+        run: |
+          echo 'deb [trusted=yes] https://repo.goreleaser.com/apt/ /' | sudo tee /etc/apt/sources.list.d/goreleaser.list
+
+      - name: Install GoReleaser
+        run: |
+          sudo apt update
+          sudo apt install goreleaser
+
       - name: Checkout
         uses: actions/checkout@v3
         with:
