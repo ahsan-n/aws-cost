@@ -1,3 +1,10 @@
+## [1.0.17](https://github.com/ahsan-n/aws-cost/compare/v1.0.16...v1.0.17) (2023-11-29)
+
+
+### Bug Fixes
+
+* **symmentic-release:** building artifacts ([c7efb4b](https://github.com/ahsan-n/aws-cost/commit/c7efb4bef80ac7a30dffac01b67bf88e404aaec4))
+
 ## [1.0.16](https://github.com/ahsan-n/aws-cost/compare/v1.0.15...v1.0.16) (2023-11-29)
 
 
