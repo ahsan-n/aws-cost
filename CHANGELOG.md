@@ -1,3 +1,10 @@
+## [1.0.19](https://github.com/ahsan-n/aws-cost/compare/v1.0.18...v1.0.19) (2023-11-29)
+
+
+### Bug Fixes
+
+* **symmentic-release:** added goreleaser stage ([59b96a5](https://github.com/ahsan-n/aws-cost/commit/59b96a546bd74c7ca001b830ac4fa840a708c116))
+
 ## [1.0.18](https://github.com/ahsan-n/aws-cost/compare/v1.0.17...v1.0.18) (2023-11-29)
 
 
