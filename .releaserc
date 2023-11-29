@@ -69,7 +69,6 @@
 "CHANGELOG.md"
 ]
 }
-]
 ],
 [
       "@semantic-release/exec",
