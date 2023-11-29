@@ -1,3 +1,10 @@
+## [1.0.11](https://github.com/ahsan-n/aws-cost/compare/v1.0.10...v1.0.11) (2023-11-29)
+
+
+### Bug Fixes
+
+* **symmentic-release:** added gorleaser ([09cec13](https://github.com/ahsan-n/aws-cost/commit/09cec13670edcee228488bd219c51a840d93a37e))
+
 ## [1.0.10](https://github.com/ahsan-n/aws-cost/compare/v1.0.9...v1.0.10) (2023-11-29)
 
 
