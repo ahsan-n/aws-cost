@@ -1,3 +1,10 @@
+## [1.0.28](https://github.com/ahsan-n/aws-cost/compare/v1.0.27...v1.0.28) (2023-11-30)
+
+
+### Bug Fixes
+
+* **symmentic-release:** added goreleaser job ([35a71f1](https://github.com/ahsan-n/aws-cost/commit/35a71f196ba73a3c14c1cdfde60b5dcfd283b65e))
+
 ## [1.0.27](https://github.com/ahsan-n/aws-cost/compare/v1.0.26...v1.0.27) (2023-11-30)
 
 
